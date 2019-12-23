@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <style>
+#mycontainer {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: #000;
+}
+
+p {
+  position: relative;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: 4px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #000, #fff, #000);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: animate 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes animate {
+  0% {
+    background-position: -500%;
+  }
+  100% {
+    background-position: 500%;
+  }
+}
+</style>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Employee Directory</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3>Employee Directory</h3>
+	<hr>
+	
+	<!-- Add button -->
+	<a th:href="@{/employees/showFormForAdd}" 
+	class="btn btn-primary btn-sm mb-3"    >
+	Add Employee
+	</a>
+	
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="tempEmployee : ${employees}">
+			
+				<td th:text="${tempEmployee.firstName}" />	
+				<td th:text="${tempEmployee.lastName}" />	
+				<td th:text="${tempEmployee.email}" />	
+				
+				<!-- Add Update Button -->
+				<td>
+				
+				<a th:href="@{/employees/showFormForUpdate(employeeId=${tempEmployee.Id})}" class="btn btn-info btn-sm"> <!-- employeeId is embedded in the update button -->
+				                Update</a>
+				
+				<a th:href="@{/employees/delete(employeeId=${tempEmployee.Id})}"     
+				  class="btn btn-danger btn-sm" onclick="if(!(confirm('Are you want to delete this employee? ')))return false"> 
+				                
+				                Delete</a><!--clicking on the delete button passes an id to the request url -->
+				
+				</td>
+				
+			</tr>
+		</tbody>		
+	</table>
+	
+</div>
+	
+	<div id ="mycontainer">
+  <p>Designed by Abel Agbachi</p>
+</div>
+
+ 
+ 
+
+
+	
+</body>
+</html>
+
+
+

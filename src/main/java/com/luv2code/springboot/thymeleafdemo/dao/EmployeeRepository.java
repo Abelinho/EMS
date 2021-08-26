@@ -13,4 +13,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	//add a custom method to sort employees by last name. this is neccessary since we no longer write lowlevel queries but rely on JpaRepository
 	public List<Employee> findAllByOrderByLastNameAsc();//this is part of springDataJpa Magic!
 	                                                  //see www.luv2code.com/query-methods
+
+	public List<Employee> findByFirstNameContainsOrLastNameContainsAllIgnoreCase(String fName, String lName);
 }

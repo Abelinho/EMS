@@ -4,10 +4,14 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+@Configuration
+@EnableOAuth2Sso
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter{
 	// add a reference to our security data source
 	
@@ -20,6 +24,8 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter{
 
 			// use jdbc authentication ... oh yeah!!!		
 			auth.jdbcAuthentication().dataSource(securityDataSource);
+			/*you could also use auth.userDetailsService() 
+			 * or auth.authenticationProvider*/
 			
 		}
 

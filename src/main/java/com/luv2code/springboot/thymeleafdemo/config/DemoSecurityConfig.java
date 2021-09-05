@@ -1,17 +1,17 @@
 package com.luv2code.springboot.thymeleafdemo.config;
 
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @Configuration
-@EnableOAuth2Sso
+//@EnableResourceServer
+//@EnableOAuth2Sso
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter{
 	// add a reference to our security data source
 	
@@ -40,14 +40,14 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/resources/**").permitAll()
 				.and()
 				.formLogin()
-					.loginPage("/showMyLoginPage")
-					.loginProcessingUrl("/authenticateTheUser")
+					.loginPage("https://www.facebook.com/dialog/oauth")//this endpoint is called for login, try putting facebook auth url here
+					.loginProcessingUrl("/authenticateTheUser")//Specify the URL to validate the credentials.
 					.permitAll()
 				.and()
 				.logout().permitAll()
 				.and()
-				.exceptionHandling().accessDeniedPage("/access-denied");
+				.exceptionHandling().accessDeniedPage("/access-denied");//<a href="/oauth2/authorization/facebook">Facebook</a>
 			
-		}
+		}//find out the url for facebook login page, so u can redirect to it
 			
 }
